@@ -1,0 +1,8 @@
+# Ignore everything in the main folder
+/*
+
+# Do not ignore the .gitignore file itself
+!.gitignore
+
+# Exception: Tell Git to track this specific folder
+!/priority-inbox-guardian/
