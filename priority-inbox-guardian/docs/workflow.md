@@ -43,7 +43,7 @@
 ***refine <span style ="color:green">`<id>`</span> <span style ="color:yellow">`<feedback>`</span>***
     Improves the draft generated
 
-**approve <span style ="color:green">`<id>`</span>***
+***approve <span style ="color:green">`<id>`</span>***
     Sends the generated drafted email
 
 ***compose***
