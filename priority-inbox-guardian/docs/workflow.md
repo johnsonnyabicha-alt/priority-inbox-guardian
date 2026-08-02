@@ -1,4 +1,4 @@
-**Incoming Email Workflow**
+## **Incoming Email Workflow**
 1. Email arrives through Caspian.
 2. The email is tracked through a message_id.
 3. Check whether the email has been tracked before
@@ -14,7 +14,7 @@
 9. If a future deadline is detected, create a reminder task. 
 ***
 
-**Deadline tracking workflow**
+## **Deadline tracking workflow**
 1. Email arrives through Caspian.
 2. LLM scans through email to find a due_date and task.
 3. The due-date, task & email in database according to closest remind_date
@@ -26,7 +26,7 @@
 
 ***
 
-**Telegram workflow**
+## **Telegram workflow**
 
 ***summary <span style ="color:green">`<id>`</span>***
     Returns concise AI-summary of a particular email.
