@@ -23,3 +23,28 @@
     - change the task to urgent 
     - send telegram a reminder
     - keep original email linked to task 
+
+***
+
+**Telegram workflow**
+***summary <span style ="color:green">`<id>`</span>***
+    Returns concise AI-summary of a particular email.
+
+***from <span style ="color:green">`<id>`</span>***
+    Returns the sender's email & name 
+
+***full <span style ="color:green">`<id>`</span>***
+    Returns the full stored email body & subject
+
+***draft <span style ="color:green">`<id>`</span>***
+    Generates a professional draft email 
+
+***refine <span style ="color:green">`<id>`</span> <span style ="color:yellow">`<feedback>`</span>***
+    Improves the draft generated
+
+**approve <span style ="color:green">`<id>`</span>***
+    Sends the generated drafted email
+
+***compose***
+    Start a brand new manual-email workflow. Allowing you send subject,body & receivers email address. 
+    
