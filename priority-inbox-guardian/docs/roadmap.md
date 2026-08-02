@@ -1,13 +1,14 @@
 ***Hackathon Roadmap***
+
 Day 1
 
-Create GitHub repository
+Create GitHub repository-done
 
-Write project specification
+Write project specification-done
 
-Define workflows
+Define workflows-done
 
-Design database schema
+Design database schema-done 
 
 Create architecture diagram
 
