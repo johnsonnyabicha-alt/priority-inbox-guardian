@@ -12,3 +12,14 @@
 7. Store the email in the database including the message_id and due_date most importantly.
 8. If the email is urgent notify the user on Telegram through Caspian. 
 9. If a future deadline is detected, create a reminder task. 
+***
+
+**Deadline tracking workflow**
+1. Email arrives through Caspian.
+2. LLM scans through email to find a due_date and task.
+3. The due-date, task & email in database according to closest remind_date
+4. remind_date = due_date - 2 days
+5. when remind_date is reached:
+    - change the task to urgent 
+    - send telegram a reminder
+    - keep original email linked to task 
