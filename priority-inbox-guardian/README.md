@@ -56,7 +56,7 @@ This satisfies the hackathon requirement of **one agent operating across multipl
 
 The following diagram shows the complete message flow between **Gmail**, **Caspian**, the **Python agent**, **Featherless.ai**, the **Email/Deadline databases**, and the **Telegram command center**.
 
-![Priority Inbox Guardian Architecture](diagrams/architecture.png)
+![Priority Inbox Guardian Architecture](/Users/edithnyabicha/Desktop/priority-inbox/priority-inbox-guardian/diagrams/architectural_design.png)
 
 ---
 
