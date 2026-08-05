@@ -16,11 +16,37 @@ CREATE TABLE IF NOT EXISTS emails(
     received_at TEXT,
     processed_at TEXT
 )
-    """)
+""")
+cur.execute(""" INSERT OR IGNORE INTO emails(
+    message_id,
+    sender_name,
+    sender_email, 
+    subject, 
+    body, 
+    summary,
+    tag,
+    urgency,
+    status, 
+    received_at,
+    processed_at
+)  VALUES(?,?,?,?,?,?,?,?,?,?,?)
+""", (
+    "msg_001",
+    "Exeter Accommodation",
+    "rent.accommodation@exeter.ac.uk",
+    "URGENT: Rent Reminder",
+    "Please pay rent by 15th August or a late fee of 50 pounds will added to your tenant ledger.",
+    "Pay August rent before 15th August",
+    "finance",
+    "action",
+    "classified",
+    "2026-08-05T12:00:00",
+    "2026-08-05T12:00:00",
+))
 
 con.commit()
 
-res = cur.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
+res = cur.execute("SELECT email_id, subject, summary, urgency FROM emails")
 print(res.fetchall())
 
 con.close() 
