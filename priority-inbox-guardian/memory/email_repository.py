@@ -66,8 +66,10 @@ def save_email(
             received_at,
             processed_at
         ))
+        email_id = cur.lastrowid 
         con.commit()
         con.close()
+        return email_id
 def get_email(email_id):
     con = get_connection()
     cur = con.cursor()
@@ -100,7 +102,7 @@ if __name__ == '__main__':
         "Exeter Accommodation",
         "rent.accommodation@exeter.ac.uk",
         "URGENT: Rent Reminder",
-        "Please pay rent by 15th August or a late fee of 50 pounds will added to your tenant ledger.",
+        "Please pay rent by 15th August or a late fee of 50 pounds will be added to your tenant ledger.",
         "Pay August rent before 15th August",
         "finance",
         "action",
