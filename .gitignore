@@ -1,8 +1,12 @@
-# Ignore everything in the main folder
-/*
+# Environment variables
+*.env
 
-# Do not ignore the .gitignore file itself
-!.gitignore
+# SQLite databases
+*.db
 
-# Exception: Tell Git to track this specific folder
-!/priority-inbox-guardian/
+# Python cache
+__pycache__/
+*.pyc
+
+# VS Code settings
+.vscode/

@@ -10,6 +10,9 @@ from memory.deadline_repository import(
     save_deadline,
     list_upcoming_deadlines 
 )
+from services.featherless_service import(
+    classify_email_with_llm
+)
 # stimulating workflow using Python logic
 def process_incoming_email(email_event):
     message_id = email_event["message_id"]
@@ -21,7 +24,7 @@ def process_incoming_email(email_event):
             "reason": "duplicate email",
             "stored": False
         }
-    classification = classify_email(subject, body)
+    classification = classify_email_with_llm(subject, body)
     email_id = save_email(
         message_id=message_id,
         sender_name=email_event["sender_name"],
@@ -38,9 +41,9 @@ def process_incoming_email(email_event):
     if classification["urgency"] == "action":
         save_deadline(
             email_id=email_id,
-            task_description="Complete BlackRock application",
-            due_date="2026-08-10",
-            remind_at="2026-08-08",
+            task_description=classification["task_description"],
+            due_date=classification["due_date"],
+            remind_at=classification["remind_at"],
             current_tag="future_action",
             status="pending"
         )
@@ -49,23 +52,6 @@ def process_incoming_email(email_event):
         "summary": classification["summary"],
         "urgency": classification["urgency"],
         "tag": classification["tag"]
-    }
-def classify_email(subject, body):
-    text = (subject + " " + body).lower()
-
-    if "urgent" in text or "deadline" in text:
-        return {
-            "summary": "Complete application before 10 August",
-            "tag": "career",
-            "urgency": "action",
-            "status": "classified"
-        }
-
-    return {
-        "summary": "General informational email",
-        "tag": "general",
-        "urgency": "info",
-        "status": "classified"
     }
     
 def telegram_command(command_text):
@@ -154,7 +140,7 @@ if __name__ == '__main__':
     initialize_deadline_database()
     # stimulating incoming email
     test_email = {
-        "message_id": "msg_004",
+        "message_id": "msg_006",
         "sender_name": "BlackRock Early Careers",
         "sender_email": "careers@blackrock.com",
         "subject": "Application Deadline Reminder",
