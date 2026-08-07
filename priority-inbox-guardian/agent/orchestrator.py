@@ -1,11 +1,14 @@
 from memory.email_repository import (
     initialize_database,
     email_exists,
-    save_email
+    save_email,
+    get_email_summary,
+    get_email
 )
 from memory.deadline_repository import(
     initialize_database as initialize_deadline_database,
-    save_deadline, 
+    save_deadline,
+    list_upcoming_deadlines 
 )
 # stimulating workflow using Python logic
 def process_incoming_email(email_event):
@@ -66,17 +69,107 @@ def classify_email(subject, body):
     }
     
 def telegram_command(command_text):
-    pass
+    parts = command_text.split()
+    # Handle empty inputs
+    if not parts:
+        return "Empty command"
+    # First word in the command 
+    command = parts[0].lower()
+    # summary <email_id>
+    if command == "summary":
+        if len(parts) != 2:
+            return "Usage: summary <email_id>"
+        
+        try:
+            email_id = int(parts[1])
+        except ValueError:
+            return "Email ID must be a number."
+        email = get_email_summary(email_id)
+
+        if not email:
+            return "Email not found."
+        
+        subject, summary, tag, urgency = email 
+        return (
+            f"Subject: {subject}\n"
+            f"Summary: {summary}\n"
+            f"Tag: {tag}\n"
+            f"Urgency: {urgency}"
+        )
+    # deadlines
+    if command == "deadlines":
+        deadlines = list_upcoming_deadlines()
+        if not deadlines:
+            return "No upcoming deadlines."
+        
+        return "\n".join(
+            f"[{task_id}] {description} - {due_date}"
+            for task_id, description, due_date, _ in deadlines
+        )
+    # full email
+    if command == "full":
+        if len(parts) != 2:
+            return "Usage: full <email_id>"
+        try:
+            email_id = int(parts[1])
+        except ValueError:
+            return "Email ID must be a number."
+        
+        email = get_email(email_id)
+        
+        if not email:
+            return "Email not Found."
+        
+        (email_id,
+        message_id,
+        sender_name,
+        sender_email,
+        subject,
+        body,
+        summary,
+        tag,
+        urgency,
+        status,
+        received_at,
+        processed_at) = email  
+        return(
+            f"From: {sender_name} <{sender_email}>\n"
+            f"Subject: {subject}\n\n"
+            f"Body:\n{body}"
+            )
+    if command == "help":
+        return(
+            "Available commands:\n"
+            "summary <email_id> - Show email summary\n"
+            "full <email_id> - Show full email body\n"
+            "deadlines - List upcoming deadlines\n"
+            "help - Show this message"
+        )        
+    return "Unknown command."
+    
 
 if __name__ == '__main__':
+    # initializing database 
     initialize_database()
     initialize_deadline_database()
+    # stimulating incoming email
     test_email = {
-        "message_id": "msg_003",
+        "message_id": "msg_004",
         "sender_name": "BlackRock Early Careers",
         "sender_email": "careers@blackrock.com",
         "subject": "Application Deadline Reminder",
         "body": "Please complete your application before 10 August."
     }
+    
     result = process_incoming_email(test_email)
+    print("=== Workflow Result ===")
     print(result)
+    # telegram command test
+    print("\n=== Telegram Command Tests ===")
+    print(telegram_command("summary 1"))
+    print()
+    print(telegram_command("deadlines"))
+    print()
+    print(telegram_command("full 1"))
+    print()
+    print(telegram_command("help"))

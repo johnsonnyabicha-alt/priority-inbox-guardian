@@ -17,6 +17,6 @@ def check_reminders():
         print(f"  Remind on: {remind_at}")
         print()
 
-# Run the service 
+# Run the service wi
 if __name__ == '__main__':
     check_reminders()

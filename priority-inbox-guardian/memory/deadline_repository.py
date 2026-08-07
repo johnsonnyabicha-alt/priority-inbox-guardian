@@ -48,6 +48,13 @@ def save_deadline(
     con.commit()
     con.close()
     return task_id
+def get_deadline(task_id):
+    con = get_connection()
+    cur = con.cursor()
+    cur.execute(""" SELECT * FROM deadlines WHERE task_id = ? """, (task_id,))
+    row = cur.fetchall()
+    con.close()
+    return row 
 def list_upcoming_deadlines(limit = 10):
     con = get_connection()
     cur = con.cursor()

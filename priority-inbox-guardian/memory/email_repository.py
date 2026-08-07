@@ -77,6 +77,15 @@ def get_email(email_id):
     row = cur.fetchone()
     con.close()
     return row
+def get_email_summary(email_id):
+    con = get_connection()
+    cur = con.cursor()
+    cur.execute(""" SELECT subject, summary, tag, urgency 
+                FROM emails
+                WHERE email_id = ?""",(email_id,))
+    row = cur.fetchone()
+    con.close()
+    return row
 def email_exists(message_id):
     con = get_connection()
     cur = con.cursor()
