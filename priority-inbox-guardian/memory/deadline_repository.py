@@ -59,7 +59,7 @@ def list_upcoming_deadlines(limit = 10):
     con = get_connection()
     cur = con.cursor()
     cur.execute("""
-                SELECT task_id, task_description, due_date, remind_at
+                SELECT email_id, task_description, due_date, remind_at
                 FROM deadlines
                 WHERE status = 'pending'
                 ORDER BY due_date ASC

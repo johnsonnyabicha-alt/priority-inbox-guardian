@@ -107,7 +107,7 @@ def list_recent_emails(limit = 10):
 if __name__ == '__main__':
     initialize_database()
     save_email(
-        "msg_001",
+        "msg_002",
         "Exeter Accommodation",
         "rent.accommodation@exeter.ac.uk",
         "URGENT: Rent Reminder",
